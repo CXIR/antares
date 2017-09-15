@@ -14,13 +14,31 @@ models.sequelize.sync();
 
 //models.sequelize.sync({force:true});
 
-/*
-models.sequelize.query('SET FOREIGN_KEY_CHECKS = 0', {raw: true}).then(function(results) {
-        models.sequelize.sync({force: true});
-});
-*/
+//models.sequelize.query('SET FOREIGN_KEY_CHECKS = 0', {raw: true}).then(function(results) {
+//        models.sequelize.sync({force: true});
+//});
 
+
+/*
+* ROUTES CONFIGURATION
+*/
 var app = express();
+
+var index = require('./routes/index');
+var coins = require('./routes/coins');
+var countries = require('./routes/countries');
+var metals = require('./routes/metals');
+var roles = require('./routes/roles');
+var users = require('./routes/users');
+var wears = require('./routes/wears');
+
+app.use('/',index);
+app.use('/coins',coins);
+app.use('/countries',countries);
+app.use('/metals',metals);
+app.use('/roles',roles);
+app.use('/users',users);
+app.use('/wears',wears);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

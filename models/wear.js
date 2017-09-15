@@ -1,5 +1,6 @@
 'use strict';
 
+/************* Sequelize for Wear model **************/
 
 module.exports = function(sequelize, DataTypes) {
   var Wear = sequelize.define('Wear', {
@@ -13,18 +14,19 @@ module.exports = function(sequelize, DataTypes) {
       allowNull : false
     }
   }, {
-    paranoid: true,
-    underscored: true,
-    freezeTableName: true,
-    classMethods: {
-      associate: function(models) {
+    paranoid : true,
+    underscored : true,
+    freezeTableName : true,
+    classMethods : {
+      associate : function(models) {
 
       }
     },
-    instanceMethods: {
-      responsify: function() {
-        let result = {};
-
+    instanceMethods : {
+      responsify : function() {
+        let result  = {};
+        result.id   = this.id;
+        result.name = this.name;
         return result;
       }
     }

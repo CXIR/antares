@@ -1,5 +1,6 @@
 'use strict';
 
+/************* Sequelize for Metal model **************/
 
 module.exports = function(sequelize, DataTypes) {
   var Country = sequelize.define('Country', {
@@ -25,18 +26,22 @@ module.exports = function(sequelize, DataTypes) {
       allowNull : false
     }
   }, {
-    paranoid: true,
-    underscored: true,
-    freezeTableName: true,
-    classMethods: {
-      associate: function(models) {
+    paranoid : true,
+    underscored : true,
+    freezeTableName : true,
+    classMethods : {
+      associate : function(models) {
 
       }
     },
-    instanceMethods: {
-      responsify: function() {
-        let result = {};
-
+    instanceMethods : {
+      responsify : function() {
+        let result    = {};
+        result.id     = this.id;
+        result.name   = this.name;
+        result.iso2   = this.iso2;
+        result.iso3   = this.iso3;
+        result.number = this.number;
         return result;
       }
     }

@@ -1,19 +1,15 @@
 'use strict';
 
-/************* Sequelize for Metal model **************/
+/************* Sequelize for Role model **************/
 
 module.exports = function(sequelize, DataTypes) {
-  var Metal = sequelize.define('Metal', {
+  var Role = sequelize.define('Role', {
     id : {
       type : DataTypes.BIGINT,
       primaryKey : true,
       autoIncrement : true
     },
     name : {
-      type : DataTypes.STRING,
-      allowNull : false
-    },
-    iso : {
       type : DataTypes.STRING,
       allowNull : false
     }
@@ -36,5 +32,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return Metal;
+  return Role;
 };

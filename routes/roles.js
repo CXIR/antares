@@ -4,7 +4,7 @@ const express = require('express');
 const models = require('../models');
 const router = express.Router();
 
-const User = models.User;
+const Role = models.Role;
 
 
 /******************************** GET ********************************/

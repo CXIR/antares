@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     mail : {
       type : DataTypes.STRING,
-      allowNull : true
+      allowNull : false
     },
     identifier : {
       type : DataTypes.STRING,

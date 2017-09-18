@@ -18,7 +18,7 @@ router.get('/',function(req,res){
     for(let country of countries) results.push(country.responsify());
 
     if(results.length > 0) res.json({result:1, content:results});
-    else res.json({result:0, message:'Country not found w/ url 02-001'});
+    else res.json({result:0, message:'No Country found w/ url 02-001'});
   })
   .catch(err => { res.json({result:-1, message:'Unable to find Country w/ url 02-001', error:err}); });
 });
@@ -31,7 +31,7 @@ router.get('/:countryID',function(req,res){
             }
   })
   .then(country => {
-    if(country) res.json({result:1, content:country});
+    if(country) res.json({result:1, content:country.responsify()});
     else res.json({result:0, message:'Country not found w/ url 02-002'});
   })
   .catch(err => { res.json({result:-1, message:'Unable to find Country w/ url 02-002', error:err}); });
@@ -95,7 +95,7 @@ router.post('/',function(req,res){
 /** Update a single Country | 02-004 */
 router.post('/update',function(req,res){
   let send = req.body;
-
+  //TODO: verify data before update
   Country.find({
     where : {
               id : send.id

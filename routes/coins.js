@@ -34,7 +34,7 @@ router.get('/:coinID',function(req,res){
     include : [ models.Country, models.Metal, models.Wear ]
   })
   .then(coin => {
-    if(coin) res.json({result:1, content:coin});
+    if(coin) res.json({result:1, content:coin.responsify()});
     else res.json({result:0, message:'No Coin found w/ url 01-002'});
   })
   .catch(err => { res.json({result:-1, message:'Unable to find Coin w/ url 01-002', error:err}); });
@@ -153,6 +153,17 @@ router.get('/newest/metal/:metalID',function(req,res){
 
 /******************************** POST ******************************/
 
+/** Create a Coin | 01-0XX */
+router.post('/',function(req,res){
+  let send = req.body;
+
+});
+
+/** Update a Coin | 01-0XX */
+router.post('/update',function(req,res){
+  let send = req.body;
+
+});
 
 /******************************* DELETE *****************************/
 

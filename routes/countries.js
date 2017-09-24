@@ -95,10 +95,10 @@ router.post('/',function(req,res){
 /** Update a single Country | 02-004 */
 router.post('/update',function(req,res){
   let send = req.body;
-  //TODO: verify data before update
+
   Country.find({
     where : {
-              id : send.id
+              id : send.country
             }
   })
   .then(country => {

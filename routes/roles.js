@@ -73,7 +73,7 @@ router.post('/update',function(req,res){
 
   Role.find({
     where : {
-              id : send.id
+              id : send.role
             }
   })
   .then(role => {

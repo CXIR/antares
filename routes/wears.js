@@ -36,7 +36,7 @@ router.get('/:wearID',function(req,res){
     if(wear) res.json({result:1, content:wear.responsify()});
     else res.json({result:0, message:'Wear not found w/ url 06-002'});
   })
-  .catch(err => { res.json({result-1, message:'Unable to find Wear w/ url 06-002', error:err}); });
+  .catch(err => { res.json({result:-1, message:'Unable to find Wear w/ url 06-002', error:err}); });
 });
 
 /******************************** POST ******************************/
@@ -51,7 +51,7 @@ router.post('/',function(req,res){
             }
   })
   .then(wear => {
-    if(wear)
+    if(wear) res.json({result:0, message:'Similar Wear w/ same name already exists w/ url 06-003'});
     else{
 
       Wear.create({
@@ -73,7 +73,7 @@ router.post('/update',function(req,res){
 
   Wear.find({
     where : {
-              id : send.id
+              id : send.wear
             }
   })
   .then(wear => {

@@ -157,7 +157,7 @@ router.post('/mail',function(req,res){
 });
 
 /** Get a User by identifier | 05-007 */
-router.post('/mail',function(req,res){
+router.post('/identifier',function(req,res){
   let send = req.body;
 
   User.find({

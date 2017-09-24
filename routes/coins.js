@@ -118,56 +118,235 @@ router.get('/royal',function(req,res){
 
 /** Get oldest Coin | 01-007 */
 router.get('/oldest',function(req,res){
-  //TODO: try this before continuing this kind of filters
-  Coin.min('year')
-  .then(coin => {
 
+  Coin.find({
+    attributes : [[ sequelize.fn('MIN', sequelize.col('year')) ]],
+    include : [ models.Country, models.Metal, models.Wear ]
   })
-  .catch(err => { });
+  .then(coin => {
+    if(coin) res.json({result:1, content:coin});
+    else res.json({result:0, message:'Coin not found w/ url 01-007'});
+  })
+  .catch(err => { res.json({result:-1, message:'Unable to find coin w/ url 01-007', error:err}); });
 });
 
 /** Get newest Coin | 01-008 */
 router.get('/newest',function(req,res){
-
+  Coin.find({
+    attributes : [[ sequelize.fn('MAX'), sequelize.col('year') ]],
+    include : [ models.Country, models.Metal, models.Wear ]
+  })
+  .then(coin => {
+    if(coin) res.json({result:1, content:coin});
+    else res.json({result:0, message:'Coin not found w/ url 01-008'});
+  })
+  .catch(err => { res.json({result:-1, message:'Unable to find coin w/ url 01-008', error:err}); });
 });
 
 /** Get oldest Coin by Country | 01-009 */
 router.get('/oldest/country/:countryID',function(req,res){
 
+  Coin.find({
+    attributes : [[ sequelize.fn('MIN'), sequelize.col('year') ]],
+    where : {
+              country_id : req.params.countryID
+            },
+    include : [ models.Country, models.Metal, models.Wear ]
+  })
+  .then(coin => {
+    if(coin) res.json({result:1, content:coin});
+    else res.json({result:0, message:'Coin not found w/ url 01-009'});
+  })
+  .catch(err => { res.json({result:-1, message:'Unable to find coin w/ url 01-009', error:err}); });
 });
 
 /** Get newest Coin by Country | 01-010 */
 router.get('/newest/country/:countryID',function(req,res){
 
+  Coind.find({
+    attributes : [[ sequelize.fn('MAX'), sequelize.col('year') ]],
+    where : {
+              country_id : req.params.countryID
+            },
+    include : [ models.Country, models.Metal, models.Wear ]
+  })
+  .then(coin => {
+    if(coin) res.json({result:1, content:coin});
+    else res.json({result:0, message:'Coin not found w/ url 01-010'});
+  })
+  .catch(err => { res.json({result:-1, message:'Unable to find coin w/ url 01-010', error:err}); });
 });
 
 /** Get oldest Coin by Metal | 01-011 */
 router.get('/oldest/metal/:metalID',function(req,res){
 
+  Coin.find({
+    attributes : [[ sequelize.fn('MIN'), sequelize.col('year') ]],
+    where : {
+              metal_id : req.params.metalID
+            },
+    include : [ models.Country, models.Metal, models.Wear ]
+  })
+  .then(coin => {
+    if(coin) res.json({result:1, content:coin});
+    else res.json({result:0, message:'Coin not found w/ url 01-011'});
+  })
+  .catch(err => { res.json({result:-1, message:'Unable to find coin w/ url 01-011', error:err}); });
 });
 
 /** Get newest Coin by Metal | 01-012 */
 router.get('/newest/metal/:metalID',function(req,res){
 
+  Coin.find({
+    attributes : [[ sequelize.fn('MAX'), sequelize.col('year') ]],
+    where : {
+              metal_id : req.params.metalID
+            },
+    include : [ models.Country, models.Metal, models.Wear ]
+  })
+  .then(coin => {
+    if(coin) res.json({result:1, content:coin});
+    else res.json({result:0, message:'Coin not found w/ url 01-012'});
+  })
+  .catch(err => { res.json({result:-1, message:'Unable to find coin w/ url 01-012', error:err}); });
 });
 
 /******************************** POST ******************************/
 
-/** Create a Coin | 01-0XX */
+/** Create a Coin | 01-013 */
 router.post('/',function(req,res){
   let send = req.body;
 
+  models.Country.find({
+    where : {
+              id : send.country
+            }
+  })
+  .then(country => {
+    if(country){
+
+      models.Metal.find({
+        where : {
+                  id : send.metal
+                }
+      })
+      .then(metal => {
+        if(metal){
+
+          models.Wear.find({
+            where : {
+                      id : send.wear
+                    }
+          })
+          .then(wear => {
+            if(wear){
+
+              Coin.create({
+                value        : send.value,
+                year         : send.year,
+                description  : send.description,
+                registration : send.registration,
+                price        : send.price,
+                royal        : send.royal
+              })
+              .then(coin => {
+                if(coin){
+
+                  coin.setCountry(country)
+                  .then(country =>{
+
+                    coin.setMetal(metal)
+                    .then(metal => {
+
+
+                      coin.setWear(wear)
+                      .then(wear => {
+
+                        res.json({result:1, message:'Coin successfully created w/ url 01-013'});
+                      })
+                      .catch(err => { res.json({result:-1, message:'Unable to set Country to the Coin w/ url 01-013', error:err}); });
+                    })
+                    .catch(err => { res.json({result:-1, message:'Unable to set Metal to the Coin w/ url 01-013', error:err}); });
+                  })
+                  .catch(err => { res.json({result:-1, message:'Unable to set Wear to the Coin w/ url 01-013', error:err}); });
+                }
+                else res.json({result:0, message:'Coin not created w/ url 01-013'});
+              })
+              .catch(err => { res.json({result:-1, message:'Unable to create Coin w/ url 01-013', error:err}); });
+            }
+            else res.json({result:0, message:'Wear not found w/ url 01-013'});
+          })
+          .catch(err => { res.json({result:-1, message:'Unable to find Wear w/ url 01-013', error:err}); });
+        }
+        else res.json({result:0, message:'Metal not found w/ url 01-013'});
+      })
+      .catch(err => { res.json({result:-1, message:'Unable to find Metal w/ url 01-013', error:err}); });
+    }
+    else res.json({result:0, message:'Country not found w/ url 01-013'});
+  })
+  .catch(err => { res.json({result:-1, message:'Unable to find Country w/ url 01-013', error:err}); });
 });
 
-/** Update a Coin | 01-0XX */
-router.post('/update',function(req,res){
+/** Update a Coin price | 01-014 */
+router.post('/update/price',function(req,res){
   let send = req.body;
 
+  Coin.find({
+    where : {
+              id : send.coin
+            }
+  })
+  .then(coin => {
+    if(coin){
+
+      coin.updateAttributes({
+        price : send.price
+      });
+      res.json({result:1, message:'Coin price successfully updated w/ url 01-014'});
+    }
+    else res.json({result:0, message:'Coin price not updated w/ url 01-014'});
+  })
+  .catch(err => { res.json({result:-1, message:'Unable to find Coin w/ url 01-014', error:err}); });
+});
+
+/** Update a Coin Wear | 01-015 */
+router.post('/update/wear',function(req,res){
+  let send = req.body;
+
+  models.Wear.find({
+    where : {
+              id : send.wear
+            }
+  })
+  .then(wear => {
+    if(wear){
+
+      Coin.find({
+        where : {
+                  id : send.coin
+                }
+      })
+      .then(coin => {
+        if(coin){
+
+          coin.setWear(wear)
+          .then(wear => {
+            res.json({result:1, message:'Coin Wear successfully updated w/ url 01-015'});
+          })
+          .catch(err => { res.json({result:-1, message:'Unable to update Wear to the Coin w/ url 01-015', error:err}); });
+        }
+        else res.json({result:0, message:'Coin not found w/ url 01-015'});
+      })
+      .catch(err => { res.json({result:-1, message:'Unable to find Coin w/ url 01,015', error:err}); });
+    }
+    else res.json({result:0, message:'Wear not found w/ url 01-015'});
+  })
+  .catch(err => { res.json({result:-1, message:'Unable to find Wear w/ url 01-015', error:err}); });
 });
 
 /******************************* DELETE *****************************/
 
-/** Drop single Coin | 01-0XX */
+/** Drop single Coin | 01-016 */
 router.delete('/:coinID',function(req,res){
   Coin.find({
     where : {
@@ -178,14 +357,14 @@ router.delete('/:coinID',function(req,res){
     if(coin){
       coin.destroy()
       .then(coin => {
-        if(coin) res.json({result:1, message:'Coin successfully removed w/ url 01-0XX'});
-        else res.json({result:0, message:'Coin not removed w/ url 01-0XX'});
+        if(coin) res.json({result:1, message:'Coin successfully removed w/ url 01-016'});
+        else res.json({result:0, message:'Coin not removed w/ url 01-016'});
       })
-      .catch(err => { res.json({result:-1, message:'Unable to remove Coin w/ url 01-0XX', error:err}); });
+      .catch(err => { res.json({result:-1, message:'Unable to remove Coin w/ url 01-016', error:err}); });
     }
-    else res.json({result:0, message:'No Coin found w/ url 01-0XX'});
+    else res.json({result:0, message:'No Coin found w/ url 01-016'});
   })
-  .catch(err => { res.json({result:-1, message:'Unable to find Coin w/ url 01-0XX', error:err}); });
+  .catch(err => { res.json({result:-1, message:'Unable to find Coin w/ url 01-016', error:err}); });
 });
 
 module.exports = router;

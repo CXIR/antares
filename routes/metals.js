@@ -80,10 +80,10 @@ router.post('/',function(req,res){
 /** Update a Metal | 03-004 */
 router.post('/update',function(req,res){
   let send = req.body;
-  //TODO: verify data before update
+
   Metal.find({
     where : {
-              id : send.id
+              id : send.metal
             }
   })
   .then(metal => {

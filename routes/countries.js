@@ -120,7 +120,7 @@ router.post('/update',function(req,res){
 /******************************* DELETE *****************************/
 
 /** Drop a single Country | 02-005 */
-router.delete('/:coutryID',function(req,res){
+router.delete('/:countryID',function(req,res){
   Country.find({
     where : {
               id : req.params.countryID

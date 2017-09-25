@@ -122,7 +122,7 @@ router.post('/update',function(req,res){
 
   User.find({
     where : {
-              id : send.id
+              id : send.user
             }
   })
   .then(user => {
@@ -214,7 +214,7 @@ router.delete('/:userID',function(req,res){
 
   User.find({
     where : {
-              id : req.parmas.userID
+              id : req.params.userID
             }
   })
   .then(user => {

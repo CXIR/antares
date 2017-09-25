@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
       responsify : function() {
         let result  = {};
         result.id   = this.id;
-        result.name = this.id;
+        result.name = this.name;
         result.iso  = this.iso;
         return result;
       }

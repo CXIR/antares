@@ -5,6 +5,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var index = require('./routes/index');
+var coins = require('./routes/coins');
+var countries = require('./routes/countries');
+var metals = require('./routes/metals');
+var roles = require('./routes/roles');
+var users = require('./routes/users');
+var wears = require('./routes/wears');
+
 var models = require('./models');
 
 /**
@@ -24,22 +32,6 @@ models.sequelize.sync();
 */
 var app = express();
 
-var index = require('./routes/index');
-var coins = require('./routes/coins');
-var countries = require('./routes/countries');
-var metals = require('./routes/metals');
-var roles = require('./routes/roles');
-var users = require('./routes/users');
-var wears = require('./routes/wears');
-
-app.use('/',index);
-app.use('/coins',coins);
-app.use('/countries',countries);
-app.use('/metals',metals);
-app.use('/roles',roles);
-app.use('/users',users);
-app.use('/wears',wears);
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -53,11 +45,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.use('/',index);
+app.use('/coins',coins);
+app.use('/countries',countries);
+app.use('/metals',metals);
+app.use('/roles',roles);
+app.use('/users',users);
+app.use('/wears',wears);
+
+
 app.get('*', function(req, res){
     /**
     *  load the Single View file for AngularJS (angular will handle the page changes on the front-end)
     */
-    res.sendfile('./public/index.html');
+    //res.sendfile('./public/index.html');
 });
 
 // catch 404 and forward to error handler

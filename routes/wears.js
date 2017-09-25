@@ -10,22 +10,23 @@ const Wear = models.Wear;
 /******************************** GET ********************************/
 
 /** Get all Wears | 06-001 */
-router.get('/',function(req,res){
+router.get('/',function(req,res,next){
 
   Wear.findAll()
   .then(wears => {
+
     let results = [];
 
     for(let wear of wears) results.push(wear.responsify());
 
-    if(results.length > 0) res.sjon({result:1, content:results});
+    if(results.length > 0) res.json({result:1, content:results});
     else res.json({result:0, message:'No Wear found w/ url 06-001'});
   })
   .catch(err => { res.json({result:-1, message:'Unable to find Wear w/ url 06-001', error:err}); });
 });
 
 /** Get single Wear | 06-002 */
-router.get('/:wearID',function(req,res){
+router.get('/:wearID',function(req,res,next){
 
   Wear.find({
     where : {
@@ -42,7 +43,7 @@ router.get('/:wearID',function(req,res){
 /******************************** POST ******************************/
 
 /** Create a Wear | 06-003 */
-router.post('/',function(req,res){
+router.post('/', function(req,res,next){
   let send = req.body;
 
   Wear.find({
@@ -68,7 +69,7 @@ router.post('/',function(req,res){
 });
 
 /** Update a Wear | 06-004 */
-router.post('/update',function(req,res){
+router.post('/update',function(req,res,next){
   let send = req.body;
 
   Wear.find({
@@ -91,7 +92,7 @@ router.post('/update',function(req,res){
 /******************************* DELETE *****************************/
 
 /** Drop a Wear | 06-005 */
-router.delete('/wearID',function(req,res){
+router.delete('/:wearID',function(req,res,next){
 
   Wear.find({
     where : {

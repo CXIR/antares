@@ -35,7 +35,7 @@ module.exports = function(sequelize, DataTypes) {
     freezeTableName : true,
     classMethods : {
       associate : function(models) {
-        User.belongsTo(models.Role);
+        User.belongsTo(models.Role, { foreignKey : { allowNull : false } });
       }
     },
     instanceMethods : {

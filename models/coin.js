@@ -33,6 +33,10 @@ module.exports = function(sequelize, DataTypes) {
       type : DataTypes.BOOLEAN,
       allowNull : false,
       defaultValue : 0
+    },
+    media : {
+      type : DataTypes.STRING,
+      allowNull : true
     }
   }, {
     paranoid : true,
@@ -40,9 +44,9 @@ module.exports = function(sequelize, DataTypes) {
     freezeTableName : true,
     classMethods : {
       associate : function(models) {
-        Coin.belongsTo(models.Country);
-        Coin.belongsTo(models.Metal);
-        Coin.belongsTo(models.Wear);
+        Coin.belongsTo(models.Country, { foreignKey : { allowNull : false } });
+        Coin.belongsTo(models.Metal, { foreignKey : { allowNull : false } });
+        Coin.belongsTo(models.Wear, { foreignKey : { allowNull : false } });
       }
     },
     instanceMethods : {

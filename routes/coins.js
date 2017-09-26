@@ -3,6 +3,7 @@
 const express = require('express');
 const models = require('../models');
 const router = express.Router();
+const sequelize = require('sequelize');
 
 const Coin = models.Coin;
 
@@ -98,7 +99,8 @@ router.get('/wear/:wearID',function(req,res){
 });
 
 /** Get all Coins royals | 01-006 */
-router.get('/royal',function(req,res){
+router.get('/royal/all',function(req,res){
+
   Coin.findAll({
     where : {
               royal : 1
@@ -117,12 +119,9 @@ router.get('/royal',function(req,res){
 });
 
 /** Get oldest Coin | 01-007 */
-router.get('/oldest',function(req,res){
+router.get('/oldest/single',function(req,res){
 
-  Coin.find({
-    attributes : [[ sequelize.fn('MIN', sequelize.col('year')) ]],
-    include : [ models.Country, models.Metal, models.Wear ]
-  })
+  Coin.min('year')
   .then(coin => {
     if(coin) res.json({result:1, content:coin});
     else res.json({result:0, message:'Coin not found w/ url 01-007'});
@@ -131,11 +130,8 @@ router.get('/oldest',function(req,res){
 });
 
 /** Get newest Coin | 01-008 */
-router.get('/newest',function(req,res){
-  Coin.find({
-    attributes : [[ sequelize.fn('MAX'), sequelize.col('year') ]],
-    include : [ models.Country, models.Metal, models.Wear ]
-  })
+router.get('/newest/single',function(req,res){
+  Coin.max('year')
   .then(coin => {
     if(coin) res.json({result:1, content:coin});
     else res.json({result:0, message:'Coin not found w/ url 01-008'});
@@ -146,12 +142,10 @@ router.get('/newest',function(req,res){
 /** Get oldest Coin by Country | 01-009 */
 router.get('/oldest/country/:countryID',function(req,res){
 
-  Coin.find({
-    attributes : [[ sequelize.fn('MIN'), sequelize.col('year') ]],
+  Coin.min('year',{
     where : {
               country_id : req.params.countryID
-            },
-    include : [ models.Country, models.Metal, models.Wear ]
+            }
   })
   .then(coin => {
     if(coin) res.json({result:1, content:coin});
@@ -163,12 +157,10 @@ router.get('/oldest/country/:countryID',function(req,res){
 /** Get newest Coin by Country | 01-010 */
 router.get('/newest/country/:countryID',function(req,res){
 
-  Coind.find({
-    attributes : [[ sequelize.fn('MAX'), sequelize.col('year') ]],
+  Coin.max('year',{
     where : {
               country_id : req.params.countryID
-            },
-    include : [ models.Country, models.Metal, models.Wear ]
+            }
   })
   .then(coin => {
     if(coin) res.json({result:1, content:coin});
@@ -180,12 +172,10 @@ router.get('/newest/country/:countryID',function(req,res){
 /** Get oldest Coin by Metal | 01-011 */
 router.get('/oldest/metal/:metalID',function(req,res){
 
-  Coin.find({
-    attributes : [[ sequelize.fn('MIN'), sequelize.col('year') ]],
+  Coin.min('year',{
     where : {
               metal_id : req.params.metalID
-            },
-    include : [ models.Country, models.Metal, models.Wear ]
+            }
   })
   .then(coin => {
     if(coin) res.json({result:1, content:coin});
@@ -197,12 +187,10 @@ router.get('/oldest/metal/:metalID',function(req,res){
 /** Get newest Coin by Metal | 01-012 */
 router.get('/newest/metal/:metalID',function(req,res){
 
-  Coin.find({
-    attributes : [[ sequelize.fn('MAX'), sequelize.col('year') ]],
+  Coin.max('year',{
     where : {
               metal_id : req.params.metalID
-            },
-    include : [ models.Country, models.Metal, models.Wear ]
+            }
   })
   .then(coin => {
     if(coin) res.json({result:1, content:coin});

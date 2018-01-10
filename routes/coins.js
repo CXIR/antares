@@ -118,28 +118,29 @@ router.get('/royal/all',function(req,res){
   .catch(err => { res.json({result:-1, message:'Unable to find Coin w/ url 01-006', error:err}); });
 });
 
-/** Get oldest Coin | 01-007 */
+/** Get oldest Coin year | 01-007 */
 router.get('/oldest/single',function(req,res){
 
   Coin.min('year')
-  .then(coin => {
-    if(coin) res.json({result:1, content:coin});
+  .then(min => {
+    if(min) res.json({result:1, content:min});
     else res.json({result:0, message:'Coin not found w/ url 01-007'});
   })
   .catch(err => { res.json({result:-1, message:'Unable to find coin w/ url 01-007', error:err}); });
 });
 
-/** Get newest Coin | 01-008 */
+/** Get newest Coin year | 01-008 */
 router.get('/newest/single',function(req,res){
+
   Coin.max('year')
-  .then(coin => {
-    if(coin) res.json({result:1, content:coin});
+  .then(max => {
+    if(max) res.json({result:1, content:max});
     else res.json({result:0, message:'Coin not found w/ url 01-008'});
   })
   .catch(err => { res.json({result:-1, message:'Unable to find coin w/ url 01-008', error:err}); });
 });
 
-/** Get oldest Coin by Country | 01-009 */
+/** Get oldest Coin year by Country | 01-009 */
 router.get('/oldest/country/:countryID',function(req,res){
 
   Coin.min('year',{
@@ -147,14 +148,14 @@ router.get('/oldest/country/:countryID',function(req,res){
               country_id : req.params.countryID
             }
   })
-  .then(coin => {
-    if(coin) res.json({result:1, content:coin});
+  .then(min => {
+    if(min) res.json({result:1, content:min});
     else res.json({result:0, message:'Coin not found w/ url 01-009'});
   })
   .catch(err => { res.json({result:-1, message:'Unable to find coin w/ url 01-009', error:err}); });
 });
 
-/** Get newest Coin by Country | 01-010 */
+/** Get newest Coin year by Country | 01-010 */
 router.get('/newest/country/:countryID',function(req,res){
 
   Coin.max('year',{
@@ -162,14 +163,14 @@ router.get('/newest/country/:countryID',function(req,res){
               country_id : req.params.countryID
             }
   })
-  .then(coin => {
-    if(coin) res.json({result:1, content:coin});
+  .then(max => {
+    if(max) res.json({result:1, content:max});
     else res.json({result:0, message:'Coin not found w/ url 01-010'});
   })
   .catch(err => { res.json({result:-1, message:'Unable to find coin w/ url 01-010', error:err}); });
 });
 
-/** Get oldest Coin by Metal | 01-011 */
+/** Get oldest Coin year by Metal | 01-011 */
 router.get('/oldest/metal/:metalID',function(req,res){
 
   Coin.min('year',{
@@ -177,14 +178,14 @@ router.get('/oldest/metal/:metalID',function(req,res){
               metal_id : req.params.metalID
             }
   })
-  .then(coin => {
-    if(coin) res.json({result:1, content:coin});
+  .then(min => {
+    if(min) res.json({result:1, content:min});
     else res.json({result:0, message:'Coin not found w/ url 01-011'});
   })
   .catch(err => { res.json({result:-1, message:'Unable to find coin w/ url 01-011', error:err}); });
 });
 
-/** Get newest Coin by Metal | 01-012 */
+/** Get newest Coin year by Metal | 01-012 */
 router.get('/newest/metal/:metalID',function(req,res){
 
   Coin.max('year',{
@@ -192,8 +193,49 @@ router.get('/newest/metal/:metalID',function(req,res){
               metal_id : req.params.metalID
             }
   })
-  .then(coin => {
-    if(coin) res.json({result:1, content:coin});
+  .then(max => {
+    if(max) res.json({result:1, content:max});
+    else res.json({result:0, message:'Coin not found w/ url 01-012'});
+  })
+  .catch(err => { res.json({result:-1, message:'Unable to find coin w/ url 01-012', error:err}); });
+});
+
+/** Get total Coin price | 01-0XX */
+router.get('/price/single',function(req,res){
+
+  Coin.sum('price')
+  .then(price => {
+    if(price) res.json({result:1, content:price});
+    else res.json({result:0, message:'Coin not found w/ url 01-012'});
+  })
+  .catch(err => { res.json({result:-1, message:'Unable to find coin w/ url 01-012', error:err}); });
+});
+
+/** Get total Coin price by Country | 01-0XX */
+router.get('/price/country/:countryID',function(req,res){
+
+  Coin.sum('price',{
+    where : {
+              country_id : req.params.countryID
+            }
+  })
+  .then(price => {
+    if(price) res.json({result:1, content:price});
+    else res.json({result:0, message:'Coin not found w/ url 01-012'});
+  })
+  .catch(err => { res.json({result:-1, message:'Unable to find coin w/ url 01-012', error:err}); });
+});
+
+/** Get total Coin price by Metal | 01-0XX */
+router.get('/price/metal/:metalID',function(req,res){
+
+  Coin.sum('price',{
+    where : {
+              metal_id : req.params.metalID
+            }
+  })
+  .then(price => {
+    if(price) res.json({result:1, content:price});
     else res.json({result:0, message:'Coin not found w/ url 01-012'});
   })
   .catch(err => { res.json({result:-1, message:'Unable to find coin w/ url 01-012', error:err}); });

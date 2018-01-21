@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8"/>
+
+  <!-- Styles Sheets-->
+  <link rel="stylesheet" type="text/css" href="css/lux.css"/>
+  <link rel="stylesheet" type="text/css" href="css/specific.css"/>
+  <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.0.2/css/all.css"/>
+
+  <!-- Javascript Extensions -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+  <!-- navigation bar -->
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index.html">NUMIS</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor03">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">Accueil <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="category.html">La France</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="category.html">Le Monde</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="category.html">L'Argenterie</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="...">
+        <a class="btn btn-secondary my-2 my-sm-0" href="global.html">Rechercher</a>
+      </form>
+      <i class="fa fa-moon fa-2x"></i>
+    </div>
+  </nav>
+
+  <!-- end of navigation bar -->
+
+  <!-- category header content -->
+
+  <div class="home">
+    <div class="category-part">
+      <h2>La Catégorie</h2>
+      <p class="lead">Toutes les Monnaies de la catégorie de 1901 à 2001, hors spécifique</p>
+    </div>
+
+    <div class="count">
+      <h5>Les Compteurs</h5>
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Nombre de Pièces
+          <span class="badge badge-primary badge-pill">672</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Valeur en Euros
+          <span class="badge badge-primary badge-pill">1327</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Pièces Royales
+          <span class="badge badge-primary badge-pill">6</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- end of category header content -->
+
+  <div style="clear:both"></div>
+
+  <!-- category submenu -->
+
+  <div class="home">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="">Catalogue</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="">Ajouter</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="">Rechercher</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- end of category submenu -->
+
+  <!-- category search wrap -->
+
+  <div class="card border-secondary mb-3 home">
+    <div class="card-body text-secondary">
+      <h4>Recherche sur la Catégorie</h4>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="..."/>
+      </div>
+      <em>La recherche se fait automatiquement selon la saisie, et remonte les résultats les plus pertinents</em>
+      <br/><br/>
+
+      <table class="table table-hover" style="display:none">
+        <thead class="text-white bg-primary">
+          <tr>
+            <th>PAYS</th>
+            <th>VALEUR</th>
+            <th>ANNEE</th>
+            <th>METAL</th>
+            <th>DESCRIPTION</th>
+            <th>CODE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+          </tr>
+          <tr>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- end of category search wrap -->
+
+  <!-- add coin wrap -->
+
+  <div class="card border-secondary mb-3 home">
+    <div class="card-body text-secondary">
+      <h4>Ajout d'une Pièce</h4>
+      <br/>
+      <div>
+        <div class="form-group group-bythree">
+          <input type="text" class="form-control" placeholder="Pays">
+        </div>
+        <div class="form-group group-bythree">
+          <input type="text" class="form-control" placeholder="Valeur Faciale">
+        </div>
+        <div class="form-group group-bythree-end">
+          <input type="text" class="form-control" placeholder="Année">
+        </div>
+      </div>
+      <div>
+        <div class="form-group">
+          <select class="custom-select group-bythree">
+            <option selected="">Métal</option>
+            <option value="1">Métal 1</option>
+            <option value="2">Métal 2</option>
+            <option value="3">Métal 3</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select class="custom-select group-bythree">
+            <option selected="">Usure</option>
+            <option value="1">Usure 1</option>
+            <option value="2">Usure 2</option>
+            <option value="3">Usure 3</option>
+          </select>
+        </div>
+        <div class="form-group group-bythree-end">
+          <input type="text" class="form-control" placeholder="Cotation">
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Description">
+      </div>
+
+      <div class="form-group">
+        <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">Royale</span>
+        </label>
+      </div>
+      <div class="btn-action">
+        <a href="" class="btn btn-outline-primary">Ajouter</a>
+        <a href="" class="btn btn-outline-danger">Effacer</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- end of add coin wrap -->
+
+  <!-- category list wrap -->
+
+  <div class="card border-secondary mb-3 home">
+    <div class="card-body text-secondary">
+      <h4>Catalogue de la Catégorie</h4>
+      <br/>
+      <h5>Les Filtres</h5>
+      <div>
+        <ul class="pagination pagination-lg">
+          <li class="page-item active">
+            <a class="page-link" href="#">A</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">B</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">C</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">D</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">E</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <ul class="pagination">
+          <li class="page-item active">
+            <a class="page-link" href="#">Allemagne</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">Autriche</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">Australie</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">Andorre</a>
+          </li>
+        </ul>
+      </div>
+
+      <table class="table table-hover">
+        <thead class="text-white bg-primary">
+          <tr>
+            <th>PAYS</th>
+            <th>VALEUR</th>
+            <th>ANNEE</th>
+            <th>METAL</th>
+            <th>DESCRIPTION</th>
+            <th>CODE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+          </tr>
+          <tr>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+            <td>..</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- end of category list wrap -->
+
+</body>
+
+</html>

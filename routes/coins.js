@@ -7,7 +7,6 @@ const sequelize = require('sequelize');
 
 const Coin = models.Coin;
 
-
 /******************************** GET ********************************/
 
 /** Get all Coins | 01-001 */

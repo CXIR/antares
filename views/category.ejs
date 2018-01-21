@@ -5,12 +5,12 @@
   <meta charset="utf-8"/>
 
   <!-- Styles Sheets-->
-  <link rel="stylesheet" type="text/css" href="css/lux.css"/>
-  <link rel="stylesheet" type="text/css" href="css/specific.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/lux.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/specific.css"/>
   <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.0.2/css/all.css"/>
 
   <!-- Javascript Extensions -->
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -26,24 +26,25 @@
 
     <div class="collapse navbar-collapse" id="navbarColor03">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.html">Accueil <span class="sr-only">(current)</span></a>
+        <li class="nav-item <%- (tab == 'home') ? 'active' : '' %>">
+          <a class="nav-link" href="/">Accueil <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="category.html">La France</a>
+        <li class="nav-item <%- (tab == 'france') ? 'active' : ''%>">
+          <a class="nav-link" href="/category/france">La France</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="category.html">Le Monde</a>
+        <li class="nav-item <%- (tab == 'world') ? 'active' : ''%>">
+          <a class="nav-link" href="/category/world">Le Monde</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="category.html">L'Argenterie</a>
+        <li class="nav-item <%- (tab == 'silver') ? 'active' : ''%>">
+          <a class="nav-link" href="/category/silver">L'Argenterie</a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
+      <form class="form-inline my-2 my-lg-0"
+            action="/search"
+            method="post">
         <input class="form-control mr-sm-2" type="text" placeholder="...">
-        <a class="btn btn-secondary my-2 my-sm-0" href="global.html">Rechercher</a>
+        <button type="submit" class="btn btn-secondary my-2 my-sm-0" href="/search">Rechercher</button>
       </form>
-      <i class="fa fa-moon fa-2x"></i>
     </div>
   </nav>
 
@@ -53,8 +54,8 @@
 
   <div class="home">
     <div class="category-part">
-      <h2>La Catégorie</h2>
-      <p class="lead">Toutes les Monnaies de la catégorie de 1901 à 2001, hors spécifique</p>
+      <h2><%= title %></h2>
+      <p class="lead"><%= description %></p>
     </div>
 
     <div class="count">
@@ -62,15 +63,15 @@
       <ul class="list-group">
         <li class="list-group-item d-flex justify-content-between align-items-center">
           Nombre de Pièces
-          <span class="badge badge-primary badge-pill">672</span>
+          <span class="badge badge-primary badge-pill"><%= number %></span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           Valeur en Euros
-          <span class="badge badge-primary badge-pill">1327</span>
+          <span class="badge badge-primary badge-pill"><%= value %></span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           Pièces Royales
-          <span class="badge badge-primary badge-pill">6</span>
+          <span class="badge badge-primary badge-pill"><%= royal %></span>
         </li>
       </ul>
     </div>
@@ -86,13 +87,13 @@
   <div class="home">
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link active" href="">Catalogue</a>
+        <a class="nav-link <%- (sub == 'all') ? 'active' : '' %>" onclick="">Catalogue</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">Ajouter</a>
+        <a class="nav-link <%- (sub == 'add') ? 'active' : '' %>" onclick="">Ajouter</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">Rechercher</a>
+        <a class="nav-link <%- (sub == 'search') ? 'active' : '' %>" onclick="">Rechercher</a>
       </li>
     </ul>
   </div>
@@ -100,7 +101,7 @@
   <!-- end of category submenu -->
 
   <!-- category search wrap -->
-
+  <% if(sub == 'search') { %>
   <div class="card border-secondary mb-3 home">
     <div class="card-body text-secondary">
       <h4>Recherche sur la Catégorie</h4>
@@ -142,11 +143,12 @@
       </table>
     </div>
   </div>
+  <% } %>
 
   <!-- end of category search wrap -->
 
   <!-- add coin wrap -->
-
+  <% if(sub == 'add') { %>
   <div class="card border-secondary mb-3 home">
     <div class="card-body text-secondary">
       <h4>Ajout d'une Pièce</h4>
@@ -200,11 +202,11 @@
       </div>
     </div>
   </div>
-
+  <% } %>
   <!-- end of add coin wrap -->
 
   <!-- category list wrap -->
-
+  <% if(sub == 'all') { %>
   <div class="card border-secondary mb-3 home">
     <div class="card-body text-secondary">
       <h4>Catalogue de la Catégorie</h4>
@@ -278,7 +280,7 @@
       </table>
     </div>
   </div>
-
+  <% } %>
   <!-- end of category list wrap -->
 
 </body>

@@ -13,9 +13,9 @@ var metals = require('./routes/metals');
 var roles = require('./routes/roles');
 var users = require('./routes/users');
 var wears = require('./routes/wears');
+var category = require('./routes/category');
 
 var models = require('./models');
-var data = require('./data');
 
 /**
 * SEQUELIZE SYNCHRONISATION
@@ -55,6 +55,7 @@ app.use('/metals',metals);
 app.use('/roles',roles);
 app.use('/users',users);
 app.use('/wears',wears);
+app.use('/category',category);
 
 
 app.get('*', function(req, res){

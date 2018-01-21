@@ -44,9 +44,9 @@ module.exports = function(sequelize, DataTypes) {
     freezeTableName : true,
     classMethods : {
       associate : function(models) {
-        Coin.belongsTo(models.Country, { foreignKey : { allowNull : false } });
-        Coin.belongsTo(models.Metal, { foreignKey : { allowNull : false } });
-        Coin.belongsTo(models.Wear, { foreignKey : { allowNull : false } });
+        Coin.belongsTo(models.Country, { foreignKey : { allowNull : true } });
+        Coin.belongsTo(models.Metal, { foreignKey : { allowNull : true } });
+        Coin.belongsTo(models.Wear, { foreignKey : { allowNull : true } });
       }
     },
     instanceMethods : {

@@ -1,13 +1,17 @@
 var express = require('express');
 var router = express.Router();
-var dt = require('../data');
 
+const models = require('../models');
+const sequelize = require('sequelize');
 
-/* GET home page. */
+const Coin = models.Coin;
+
 router.get('/', function(req, res, next) {
-  var data = { title : dt.tst() };
+  data = { tab : "home" };
 
   res.render('index',data);
+
 });
+
 
 module.exports = router;

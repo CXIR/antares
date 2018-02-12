@@ -1,3 +1,10 @@
+.navbar {
+    width    : 100%;
+    position : fixed;
+    top      : 0px;
+    z-index: 100;
+}
+
 .login
 {
   width: 30%;
@@ -8,7 +15,7 @@
 .login a
 {
   float       : right;
-  margin-left : 1%; 
+  margin-left : 1%;
 }
 
 .home-box
@@ -36,21 +43,29 @@
 {
   margin-left   : 2%;
   width         : 96%;
-  margin-top    : 4em;
+  margin-top    : 10em;
   margin-bottom : 3em;
+  z-index:      : -1;
 }
 
-.group-bythree
+.group-element
 {
-  width        : 31%;
+  width        : 30%;
   margin-right : 3%;
   float        : left;
 }
 
-.group-bythree-end
+.group-element select
 {
-  width : 32%;
-  float : left;
+  width : 100%;
+}
+.input-med
+{
+  width : 96%;
+}
+.clear
+{
+  clear : both;
 }
 
 .btn-action a

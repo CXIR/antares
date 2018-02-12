@@ -1,0 +1,243 @@
+<section>
+  <nv></nv>
+
+<!-- category header content -->
+
+<div class="home">
+
+  <div class="category-part">
+    <h2 ng-bind="category.name"></h2>
+    <p class="lead" ng-bind="category.description"></p>
+  </div>
+
+  <div class="count">
+    <h5>Les Compteurs</h5>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Nombre de Pièces
+        <span class="badge badge-primary badge-pill" ng-bind="category.count || 0"></span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Valeur en Euros
+        <span class="badge badge-primary badge-pill" ng-bind="category.value || 0"></span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Pièces Royales
+        <span class="badge badge-primary badge-pill" ng-bind="category.royal || 0"></span>
+      </li>
+    </ul>
+  </div>
+
+<!-- end of category header content -->
+
+<div style="clear:both"></div>
+
+<br/><br/>
+
+<!-- category submenu -->
+
+<div ng-init="content = 'catalog'">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link"
+         ng-class=" ( content == 'catalog' ) ? 'active' : '' "
+         href=""
+         ng-click=" content = 'catalog' ">Catalogue</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+         ng-class=" ( content == 'add' ) ? 'active' : '' "
+         href=""
+         ng-click=" content = 'add' ">Ajouter</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+         ng-class=" ( content == 'search' ) ? 'active' : '' "
+         href=""
+         ng-click=" content = 'search' ">Rechercher</a>
+    </li>
+  </ul>
+</div>
+
+<!-- end of category submenu -->
+
+<br/><br/>
+
+<!-- category search wrap -->
+
+<div class="card border-secondary mb-3" ng-show=" content == 'search' ">
+  <div class="card-body text-secondary">
+    <h4>Recherche sur la Catégorie</h4>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="..."/>
+    </div>
+    <em>La recherche se fait automatiquement selon la saisie, et remonte les résultats les plus pertinents</em>
+    <br/><br/>
+
+    <table class="table table-hover" style="display:none">
+      <thead class="text-white bg-primary">
+        <tr>
+          <th>PAYS</th>
+          <th>VALEUR</th>
+          <th>ANNEE</th>
+          <th>METAL</th>
+          <th>USURE</th>
+          <th>DESCRIPTION</th>
+          <th>ROYALE</th>
+          <th>CODE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="result in results">
+          <td ng-bind="result.country"></td>
+          <td ng-bind="result.value"></td>
+          <td ng-bind="result.year"></td>
+          <td ng-bind="result.metal.name"></td>
+          <td ng-bind="result.use.name"></td>
+          <td ng-bind="result.description"></td>
+          <td>
+            <i class="fa fa-check" ng-show="result.royal"></i>
+          </td>
+          <td ng-bind="result.code"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- end of category search wrap -->
+
+<!-- add coin wrap -->
+
+<div class="card border-secondary mb-3" ng-show=" content == 'add' ">
+  <div class="card-body text-secondary">
+    <h4>Ajout d'une Pièce</h4>
+    <br/>
+    <p class="text-danger" ng-bind="error.message" ng-show="error.active"></p>
+    <div>
+      <div class="form-group group-element" ng-hide="category.france">
+        <input type="text" class="form-control" placeholder="Pays" ng-model="add.country" />
+      </div>
+      <datalist>
+      </datalist>
+      <div class="form-group group-element">
+        <input type="text" class="form-control" placeholder="Valeur Faciale" ng-model="add.value" />
+      </div>
+      <div class="form-group group-element">
+        <input type="text" class="form-control" placeholder="Année" ng-model="add.year" />
+      </div>
+      <div class="form-group group-element" ng-hide="category.silver">
+        <select class="custom-select" ng-option="metal.name for metal in metals">
+          <option selected=""> Métal </option>
+        </select>
+      </div>
+      <div class="form-group group-element">
+        <select class="custom-select" ng-option="use.name for use in uses">
+          <option selected=""> Usure </option>
+        </select>
+      </div>
+      <div class="form-group group-element">
+        <input type="text" class="form-control" placeholder="Cotation" ng-model="add.cotation" />
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="form-group input-med">
+      <input type="text" class="form-control" placeholder="Description" ng-model="add.description" />
+    </div>
+    <button type="button"
+            class="btn"
+            ng-init="add.royal = false"
+            ng-class="(add.royal) ? 'btn-primary' : 'btn-outline-secondary'"
+            ng-click="add.royal = (add.royal) ? false : true">Royale
+    </button>
+
+    <div class="btn-action">
+      <a href="" class="btn btn-outline-primary" ng-click="addCoin(add)">Ajouter</a>
+      <a href="" class="btn btn-outline-danger" ng-click="addClean()">Effacer</a>
+    </div>
+  </div>
+</div>
+
+<!-- end of add coin wrap -->
+
+<!-- category list wrap -->
+
+<div class="card border-secondary mb-3" ng-show=" content == 'catalog' ">
+  <div class="card-body text-secondary">
+    <h4>Catalogue de la Catégorie</h4>
+    <br/>
+    <h5>Les Filtres</h5>
+    <div>
+      <ul class="pagination pagination-lg">
+        <li class="page-item active">
+          <a class="page-link" href="#">A</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">B</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">C</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">D</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">E</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <ul class="pagination">
+        <li class="page-item active">
+          <a class="page-link" href="#">Allemagne</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">Autriche</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">Australie</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">Andorre</a>
+        </li>
+      </ul>
+    </div>
+
+    <table class="table table-hover">
+      <thead class="text-white bg-primary">
+        <tr>
+          <th>PAYS</th>
+          <th>VALEUR</th>
+          <th>ANNEE</th>
+          <th>METAL</th>
+          <th>DESCRIPTION</th>
+          <th>CODE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>..</td>
+          <td>..</td>
+          <td>..</td>
+          <td>..</td>
+          <td>..</td>
+          <td>..</td>
+        </tr>
+        <tr>
+          <td>..</td>
+          <td>..</td>
+          <td>..</td>
+          <td>..</td>
+          <td>..</td>
+          <td>..</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- end of category list wrap -->
+
+</div>
+
+</section>
